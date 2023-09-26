@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Resize Folder</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <div id="container">
+      <div id="rightt">
+        <h1>Enter Folder path</h1>
+        <div id = "path">
+          <input id ="inputpath" type="text" />
+          <img id ="imgsel" src="folder.png" alt="" onclick="selectFolder()">
+        </div>
+      </div>
+    </div>
+    <div id="third">
+      <a href="../index.html"><button id="back">X</button></a>
+      <h1>Width X Height</h1>
+      <div style="display: flex; flex-direction: row; ">
+        <input id="width" style="border-radius: 10px; border: 0; width: 92px; height: 40px; margin-right: 10px; font-size: medium;" type="text">
+        <h3 style=" margin: 0;">X</h3>
+        <input id="height" style="border-radius: 10px; border: 0; width: 92px; height: 40px;margin-left: 10px; font-size: medium;" type="text">
+      </div>
+      
+      <br />
+      <h1>Depth</h1>
+      <select name="mode" id="depth">
+        <option value="1">Aspect ratio intact</option>
+        <option value="0">Aspect not ratio intact</option>
+        
+      </select>
+      <br />
+      <h1>Change Original</h1>
+      <input type="checkbox" id="myCheck" />
+
+      <button id="process" onclick="resizefolder()">Process</button>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+      function updateValue(value) {
+        document.getElementById("sliderValue").textContent = value;
+      }
+    </script>
+    <script>
+      const { ipcRenderer } = require("electron");
+
+      function selectFolder() {
+        ipcRenderer.send("open-dialog");
+      }
+
+      ipcRenderer.on("selected-folder", (event, path) => {
+        document.getElementById("inputpath").value = path;
+      });
+    </script>
+  </body>
+</html>

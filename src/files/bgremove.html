@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Background Remove</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <div id="container">
+      <div id="right">
+        <div id="dropfile" class="drop-area">
+          <p>Drag and drop files here</p>
+        </div>
+        <div id="fileCards"></div>
+      </div>
+    </div>
+    <div id="third">
+      <a href="../index.html"><button id="back">X</button></a>
+      
+      <h1>Mode</h1>
+      <select name="mode" id="depth">
+        <option value="rgba">rgba</option>
+        <option value="map">map</option>
+        <option value="green">green</option>
+        <option value="blur">blur</option>
+        
+        
+      </select>
+     
+
+      <button id="process" onclick="bgrem()">Process</button>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+      function updateValue(value) {
+        document.getElementById("sliderValue").textContent = value;
+      }
+    </script>
+    <script>
+      const dropArea = document.getElementById("right");
+      const dropFile = document.getElementById("dropfile");
+      const fileCardsContainer = document.getElementById("fileCards");
+      let index = 0; // Initialize the index
+      const filePaths = []; // Initialize the global array to store file paths
+      const supportedFormats = [
+        ".bmp",
+        ".dib",
+        ".eps",
+        ".gif",
+        ".icns",
+        ".ico",
+        ".im",
+        ".jpg",
+        ".jpeg",
+        ".msp",
+        ".pcx",
+        ".png",
+        ".ppm",
+        ".sgi",
+        ".spider",
+        ".tiff",
+        ".webp",
+        ".xbm",
+      ];
+      dropArea.addEventListener("dragover", (e) => {
+        e.preventDefault();
+      });
+
+      dropArea.addEventListener("drop", (e) => {
+        e.preventDefault();
+
+        // Remove the drop file area message
+        dropFile.style.display = "none";
+
+        // Loop through dropped files
+        for (const file of e.dataTransfer.files) {
+          if (supportedFormats.some((ext) => file.name.endsWith(ext))) {
+            // Create a card for PDF files
+            console.log(file);
+            const card = document.createElement("div");
+            card.classList.add("file-card");
+            card.innerHTML = `
+            <img id="image_ss" src="${file.path}">
+            <p>${file.name}</p>
+            <p>${(file.size / 1048576).toFixed(3)}MB</p>
+            <button class="remove-button">X</button>
+          `;
+
+            // Add a click event to remove the card
+            const removeButton = card.querySelector(".remove-button");
+            removeButton.addEventListener("click", () => {
+              card.remove();
+
+              // Remove the file path from the filePaths array
+              const indexToRemove = filePaths.indexOf(file.path);
+              if (indexToRemove !== -1) {
+                filePaths.splice(indexToRemove, 1);
+              }
+
+              if (fileCardsContainer.childElementCount === 0) {
+                dropFile.style.display = "flex";
+              }
+            });
+
+            // Append the card to the container
+            fileCardsContainer.appendChild(card);
+
+            // Increment the index
+            index++;
+
+            // Add the file path to the global array
+            filePaths.push(file.path);
+          } else {
+            dropFile.style.display = "flex";
+          }
+        }
+
+        // Log the paths of dropped files along with the index
+        //console.log(`Dropped file paths (${index}):`, filePaths.join(', '));
+      });
+    </script>
+  </body>
+</html>

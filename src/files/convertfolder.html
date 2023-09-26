@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Convert Folder</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <div id="container">
+      <div id="rightt">
+        <h1>Enter Folder path</h1>
+        <div id = "path">
+          <input id ="inputpath" type="text" />
+          <img id ="imgsel" src="folder.png" alt="" onclick="selectFolder()">
+        </div>
+      </div>
+    </div>
+    <div id="third">
+      <a href="../index.html"><button id="back">X</button></a>
+      
+      <h1>Format</h1>
+      <select name="mode" id="depth">
+        <option value=".jpg">.jpg</option>
+        <option value=".png">.png</option>
+        <option value=".tif">.tif</option>
+        <option value=".jpeg">.jpeg</option>
+        <option value=".bmp">.bmp</option>
+        <option value=".psd">.psd</option>
+        <option value=".ico">.ico</option>
+        
+      </select>
+     
+
+      <button id="process" onclick="convertfolder()">Process</button>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+      function updateValue(value) {
+        document.getElementById("sliderValue").textContent = value;
+      }
+    </script>
+ 
+    <script>
+      const { ipcRenderer } = require("electron");
+
+      function selectFolder() {
+        ipcRenderer.send("open-dialog");
+      }
+
+      ipcRenderer.on("selected-folder", (event, path) => {
+        document.getElementById("inputpath").value = path;
+      });
+    </script>
+  </body>
+</html>

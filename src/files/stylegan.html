@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IMG To PDF</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <div id="container">
+      <div id="right" style="justify-content: center; align-items: center;">
+        <!-- <div id="dropfile" class="drop-area">
+          <p>Drag and drop files here</p>
+        </div>
+        <div id="fileCards"></div> -->
+        <img id= "stylegan" src="result.jpg" alt="after processing image" style="height: 95%; width: auto;">
+      </div>
+    </div>
+    <div id="third">
+      <a href="../index.html"><button id="back">X</button></a>
+      
+      <div id = "path" style="margin-top: 100px;">
+        <input id ="inputpath" type="text" style="background-color: #ffffff;" value="C:\Users\91741\Downloads"/>
+        <img id ="imgsel" src="folder.png" alt="" onclick="selectFolder()" style="height: 30px; width: auto;">
+      </div>
+     
+      <h1>Mode</h1>
+      <select name="mode" id="depth">
+        <option value="0">Face</option>
+        <option value="1">Body</option>
+        
+      </select>
+      <button id="process" onclick="stylegan()">Process</button>
+    </div>
+
+    <script src="script.js"></script>
+    
+    <script>
+      const { ipcRenderer } = require("electron");
+
+      function selectFolder() {
+        ipcRenderer.send("open-dialog");
+      }
+
+      ipcRenderer.on("selected-folder", (event, path) => {
+        document.getElementById("inputpath").value = path;
+      });
+    </script>
+    
+  </body>
+</html>

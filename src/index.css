@@ -1,0 +1,61 @@
+body{
+  background-color: #f5f5fa;
+  font-family: -apple-system,system-ui,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+/* Styles for the card container */
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 100%; /* Set the width of the container to 100% */
+}
+
+/* Styles for each individual card */
+.card {
+  width: calc(20% - 20px); /* 20% width for each card with spacing */
+  margin-bottom: 10px;
+  padding: 5px;
+  /* border: 1px solid #ccc; */
+  /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
+  text-align: center;
+  border-radius: 10px;
+  background-color: #ffffff;
+  /* margin-top: 40px; */
+  box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
+  height: 200px;
+}
+
+/* Style for card images */
+.card img {
+  
+  height: 100px;
+  width: auto;
+  max-width: 100%;
+  border-radius: 5px;
+}
+
+/* Style for card headings */
+.card h2 {
+  margin-top: 10px;
+  font-size: 18px;
+}
+
+/* Style for card buttons */
+.card button {
+  margin-top: 3px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 8px;
+  width: 70%;
+  margin-bottom: 10px;
+  height: 40px;
+  box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
+  /* height: 20%; */
+
+}
+.card button:hover{
+  background: #0062cc;
+}
